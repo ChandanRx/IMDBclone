@@ -10,9 +10,27 @@ const Home = () => {
     const [ popularMovies, setPopularMovies ] = useState([])
 
     useEffect(() => {
-        fetch("https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US")
-        .then(res => res.json())
-        .then(data => setPopularMovies(data.results))
+
+        const url = 'https://imdb236.p.rapidapi.com/imdb/top250-movies';
+const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': 'c1926f1e7fmsh31e8c16ec1c905bp15b7e4jsnf5e9f0904f8d',
+		'x-rapidapi-host': 'imdb236.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	setPopularMovies(results);
+} catch (error) {
+	console.error(error);
+}
+        
+        // fetch("https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US")
+        // .then(res => res.json())
+        // .then(data => setPopularMovies(data.results))
     }, [])
 
     return (
